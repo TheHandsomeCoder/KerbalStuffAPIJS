@@ -6,8 +6,15 @@ const baseRequest = require('request-promise').defaults({
 	json: true
 })
 
-var KerbalStuffWrapper = function() {};
+function KerbalStuffWrapper(){};
 
+/**
+ * @param  {number} page
+ * @param  {string} orderBy
+ * @param  {string} order	
+ * @param  {int} count
+ * @return {promise}
+ */
 KerbalStuffWrapper.prototype.browse = function(page, orderBy, order, count) {
 
 	let options = {
@@ -23,9 +30,19 @@ KerbalStuffWrapper.prototype.browse = function(page, orderBy, order, count) {
 	return baseRequest.get(options);
 };
 
-var test = new KerbalStuffWrapper();
-test.browse().then(json => {
-	console.log(json);
-});
+KerbalStuffWrapper.prototype.search = function(searchString) {
+
+	let options = {
+		uri: '/search',
+		qs: {
+			search: searchString			
+		}
+	};
+
+	return baseRequest.get(options);
+};
+
+
+
 
 
