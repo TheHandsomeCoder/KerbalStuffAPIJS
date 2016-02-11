@@ -15,6 +15,7 @@ function KerbalStuffWrapper(){}
  * @param  {int} [count]
  * @return {Promise}
  */
+
 KerbalStuffWrapper.prototype.browse = function(page, orderBy, order, count) {
 
 	let options = {
