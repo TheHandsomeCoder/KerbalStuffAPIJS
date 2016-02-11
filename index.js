@@ -4,16 +4,16 @@
 const baseRequest = require('request-promise').defaults({
 	baseUrl: 'https://kerbalstuff.com/api',
 	json: true
-})
+});
 
-function KerbalStuffWrapper(){};
+function KerbalStuffWrapper(){}
 
 /**
- * @param  {number} page
- * @param  {string} orderBy
- * @param  {string} order	
- * @param  {int} count
- * @return {promise}
+ * @param  {number} [page]
+ * @param  {string} [orderBy]
+ * @param  {string} [order]
+ * @param  {int} [count]
+ * @return {Promise}
  */
 KerbalStuffWrapper.prototype.browse = function(page, orderBy, order, count) {
 
@@ -41,6 +41,11 @@ KerbalStuffWrapper.prototype.search = function(searchString) {
 
 	return baseRequest.get(options);
 };
+
+var test = new KerbalStuffWrapper();
+test.browse()
+    .then(json => console.log(json))
+    .catch(error => console.log(error));
 
 
 
