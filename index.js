@@ -1,39 +1,31 @@
 #!/usr/bin/env node
+"use strict";
 
-const https = require('https');
+const baseRequest = require('request-promise').defaults({
+	baseUrl: 'https://kerbalstuff.com/api',
+	json: true
+})
 
 var KerbalStuffWrapper = function() {};
 
-KerbalStuffWrapper.prototype.browse = function() {
-	var options = {
-		hostname: 'kerbalstuff.com',
-		path: '/api/browse',
-		method: 'GET'
+KerbalStuffWrapper.prototype.browse = function(page, orderBy, order, count) {
+
+	let options = {
+		uri: '/browse',
+		qs: {
+			page: page,
+			orderBy: orderBy,
+			order: order,
+			count: count
+		}
 	};
 
-	console.info('Options prepared:');
-	console.info(options);
-	console.info('Do the GET call');
-
-	// do the GET request
-	var reqGet = https.request(options, function(res) {
-		console.log("statusCode: ", res.statusCode);
-		// uncomment it for header details
-		//  console.log("headers: ", res.headers);
-
-		res.on('data', function(d) {
-			console.info('GET result:\n');
-			process.stdout.write(d);
-			console.info('\n\nCall completed');
-		});
-
-	});
-
-	reqGet.end();
-	reqGet.on('error', function(e) {
-		console.error(e);
-	});
+	return baseRequest.get(options);
 };
 
 var test = new KerbalStuffWrapper();
-test.browse();
+test.browse().then(json => {
+	console.log(json);
+});
+
+

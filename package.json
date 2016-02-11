@@ -15,5 +15,10 @@
   "preferGlobal": true,
   "bin": {
     "ksp": "index.js"
+  },
+  "dependencies": {
+    "install": "^0.4.2",
+    "npm": "^3.7.1",
+    "request-promise": "^2.0.0"
   }
 }
